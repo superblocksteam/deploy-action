@@ -29,7 +29,7 @@ jobs:
           fetch-depth: 0
 
       - name: Deploy
-        uses: superblocksteam/import-action@v1
+        uses: superblocksteam/deploy-action@v1
         id: deploy
         with:
           token: ${{ secrets.SUPERBLOCKS_TOKEN }}
@@ -47,7 +47,7 @@ If your organization uses Superblocks EU, set the `domain` to `eu.superblocks.co
       ...
 
       - name: Deploy
-        uses: superblocksteam/import-action@v1
+        uses: superblocksteam/deploy-action@v1
         id: deploy
         with:
           token: ${{ secrets.SUPERBLOCKS_TOKEN }}
