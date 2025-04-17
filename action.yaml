@@ -1,0 +1,24 @@
+name: 'Superblocks Deploy'
+description: 'Deploy Applications, Workflows, and Scheduled Jobs in Superblocks'
+inputs:
+  token:
+    description: 'The Superblocks access token to use'
+    required: true
+  domain:
+    description: 'The Superblocks domain where resources are hosted'
+    default: 'app.superblocks.com'
+  path:
+    description: 'The relative path from repo root to the Superblocks root directory. This is where the ~.superblocks/superblocks.json config file is located.'
+    default: '.'
+  sha:
+    description: 'Commit to push changes for'
+    default: 'HEAD'
+
+runs:
+  using: 'docker'
+  image: 'docker://superblocksteam/deploy-action:v1'
+  env:
+    SUPERBLOCKS_TOKEN: ${{ inputs.token }}
+    SUPERBLOCKS_DOMAIN: ${{ inputs.domain }}
+    SUPERBLOCKS_PATH: ${{ inputs.path }}
+    SUPERBLOCKS_COMMIT_SHA: ${{ inputs.sha }}
