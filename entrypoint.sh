@@ -59,8 +59,10 @@ deploy_resource() {
     #   pages/*
     #   apis/*
     #   api.yaml
+    #   *.js
+    #   *.py
     # This specificity ensures that we avoid deploying when only the components subdir has changes.
-    if echo "$changed_files" | grep -qP "${escaped_location}/((application|page|api).yaml|apis/|pages/)" ; then
+    if echo "$changed_files" | grep -qP "${escaped_location}/((application|page|api).yaml|.*\.js|.*\.py|apis/|pages/)" ; then
         printf "\nChange detected. Deploying...\n"
         superblocks deploy "$location"
     else
