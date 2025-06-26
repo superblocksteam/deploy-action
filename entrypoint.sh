@@ -64,7 +64,13 @@ deploy_resource() {
     # This specificity ensures that we avoid deploying when only the components subdir has changes.
     if echo "$changed_files" | grep -qP "${escaped_location}/((application|page|api).yaml|.*\.js|.*\.py|apis/|pages/)" ; then
         printf "\nChange detected. Deploying...\n"
-        superblocks deploy "$location"
+        if [ -n "$SUPERBLOCKS_COMMIT_SHA" ] && [ "$SUPERBLOCKS_COMMIT_SHA" != "HEAD" ]; then
+            printf "\nDeploying with deploy command: superblocks deploy $location --commit-id $SUPERBLOCKS_COMMIT_SHA\n"
+            superblocks deploy "$location" --commit-id "$SUPERBLOCKS_COMMIT_SHA"
+        else
+            printf "\nDeploying with deploy command: superblocks deploy $location\n"
+            superblocks deploy "$location"
+        fi
     else
         printf "\nNo change detected. Skipping deploy...\n"
     fi
